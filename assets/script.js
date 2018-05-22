@@ -44,8 +44,8 @@ $("#button-add-person").on("click", function() {
 
 
 });
-
-$("button").on("hover", function() {
+/*
+$(".button").on("mouseover", function() {
     var person = $(this).attr("data-person");
     var queryURL = //should go to WIKI's page
 
@@ -60,35 +60,40 @@ $("button").on("hover", function() {
 
       });
   });
+  */
 
 //Listener for button click, creates the GIFs
 $(".button").on("click", function() {
     var person = $(this).attr("data-person");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-      person + "&api_key=dc6zaTOxFJmzC&limit=5";
+      person + "&api_key=dc6zaTOxFJmzC&limit=3";
 
     $.ajax({
       url: queryURL,
       method: "GET"
-    })
-      .then(function(response) {
+    }).then(function(response) {
+        //save the Array of GIFs in a variable
         var results = response.data;
 
+        //create the div for columns
+        var gifColumns = $("<div>");
+        gifColumns.addClass("columns");
+
+        $("#gifs").prepend(gifColumns);
+
         for (var i = 0; i < results.length; i++) {
-          var gifDiv = $("<div class='item'>");
 
-          var rating = results[i].rating;
+            //create the div for each column
+            var gifColumn = $("<div>");
+            gifColumn.addClass("column");
+            gifColumn.addClass("has-text-centered");
 
-          var p = $("<p>").text("Rating: " + rating);
+            var gifImg = $("<img>");
+            gifImg.attr("src", results[i].images.fixed_height.url);
 
-          var personImage = $("<img>");
-          personImage.attr("src", results[i].images.fixed_height.url);
-
-          gifDiv.prepend(p);
-          gifDiv.prepend(personImage);
-
-          $("#gifs-appear-here").prepend(gifDiv);
+            gifColumn.append(gifImg);
+            gifColumns.append(gifColumn);
         }
-      });
-  });
+    });
+});
 
