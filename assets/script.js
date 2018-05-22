@@ -8,7 +8,10 @@ GIFs should be added, each, nested on a column, no more than 6 on a columns div
 
 $(document).ready(function() {
 
+var wikiURL = "https://en.wikipedia.org/api/rest_v1/page/summary/";
+
     //Input field listener to add new person
+    //Needs work as more than 6 new buttons will overflow the viewport
     $("#button-add-person").on("click", function() {
         /*
         PERSON EXISTS?
@@ -37,8 +40,8 @@ $(document).ready(function() {
         newColumn.addClass("column");
         newButton.addClass("button");
         newButton.addClass("gif-button");
-        newButton.attr("data-person", newPerson.val());
-        newButton.text(newPerson.val());
+        newButton.attr("data-person", newPerson.val().trim());
+        newButton.text(newPerson.val().trim());
 
         newColumn.append(newButton);
         currentColumns.append(newColumn);
@@ -47,26 +50,45 @@ $(document).ready(function() {
 
 
     });
-    /*
-    $(".button").on("mouseover", function() {
+
+
+    //Function to show, with a modal the person's information from Wikipedia
+    $("#buttons").on("click", ".gif-button", function() {
         var person = $(this).attr("data-person");
-        var queryURL = //should go to WIKI's page
+
+        //remove spaces from name, put underscores
+        for (var i=0; i<person.length; i++) {
+            person_ = person.replace(" ", "_");
+        }
+
+        var queryURL = wikiURL + person_;
 
         $.ajax({ //confirm the method
         url: queryURL,
         method: "GET"
         })
         .then(function(response) {
-            var results = response.data;
+            //capture and show the modal
+            var modal = $("#modal");
+            modal.addClass("is-active");
 
-            //Do the actual logic to fill, and show the modal.
+            var title = response.displaytitle;
+            $("#modal-card-title").text(title);
 
+            var subtitle = response.description;
+            $("#modal-card-subtitle").text(subtitle);
+
+            var body = response.extract;
+            $("#modal-card-body").text(body);
+
+            var button = $("#modal-button");
+            button.attr("data-person", person);
         });
     });
-    */
+
 
     //Listener for button click, creates the GIFs
-    $("#buttons").on("click", ".gif-button", function() {
+    $(".site-content").on("click", "#modal-button", function() {
         var person = $(this).attr("data-person");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         person + "&api_key=dc6zaTOxFJmzC&limit=3";
@@ -152,15 +174,24 @@ $(document).ready(function() {
 
             var closingBtn = $("<button>");
             closingBtn.addClass("delete");
+            closingBtn.addClass("dltpls");
             closingBtn.attr("aria-label", "close");
 
             tinyClosingColumn.append(closingBtn);
 
+            $("#modal").removeClass("is-active");
+
         });
     });
 
-    $("#gifs").on("click", ".delete", function() {
+    //Listener for the close button on the box with the GIFs
+    $(".site-content").on("click", ".dltpls", function() {
         $(this).parent().parent().parent().hide();
+    });
+
+    //Listener for the close button on the modal
+    $(".modal").on("click", "#close", function() {
+        $(this).parent().parent().parent().removeClass("is-active");
     });
 
 });

@@ -22,8 +22,9 @@
                     </h1>
                     <h2 class="subtitle" id="subtitle">
                         Here you'll find the GIFs for the most amazing and inspiring people
+                        <p>Hover over a button, to learn more about the person.</p>
                         <hr style="margin-bottom: 0px; margin-top: 0px;">
-                        <br> <b>Add your own:</b>
+                        <br> <b>Or add your own:</b>
                     </h2>
                     <div class="field has-addons has-addons-centered">
                         <div class="control">
@@ -82,19 +83,26 @@
         </section>
 
         <!-- Modal to be activated -->
-        <div class="modal">
+        <div class="modal" id="modal">
             <div class="modal-background"></div>
             <div class="modal-card">
-                <header class="modal-card-head">
-                <p class="modal-card-title">Placeholder Name Button</p>
-                <button class="delete" aria-label="close"></button> 
+                <header class="modal-card-head"> 
+                    <div class="columns">
+                        <div class="column is-6">
+                            <p class="modal-card-title" id="modal-card-title"></p>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-6">
+                            <p class="modal-card-subtitle" id="modal-card-subtitle"></p>
+                        </div>
+                    </div>
                 </header>
-                <section class="modal-card-body">
-                Placeholder person's info
+                <section class="modal-card-body" id="modal-card-body">
                 </section>
                 <footer class="modal-card-foot">
-                <button class="button is-primary">show me the GIFs</button>
-                <button class="button is-warning">No thanks</button>
+                    <a class="button gif-button" id="modal-button" data-person="">Get GIFs!</a>
+                    <a class="button" id="close">Close!</a>
                 </footer>
             </div>
         </div>
