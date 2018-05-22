@@ -17,12 +17,24 @@
         <section id="hero" class="hero is-light">
             <div class="hero-body">
                 <div class="container">
-                <h1 class="title" id="title">
-                    GIFspiring
-                </h1>
-                <h2 class="subtitle" id="subtitle">
-                    Here you'll find the GIFs for the most amazing and inspiring people
-                </h2>
+                    <h1 class="title" id="title">
+                        GIFspiring
+                    </h1>
+                    <h2 class="subtitle" id="subtitle">
+                        Here you'll find the GIFs for the most amazing and inspiring people
+                        <hr style="margin-bottom: 0px; margin-top: 0px;">
+                        <br> <b>Add your own:</b>
+                    </h2>
+                    <div class="field has-addons has-addons-centered">
+                        <div class="control">
+                            <input class="input" id="input-person" type="text" placeholder="Who inspires you?">
+                        </div>
+                        <div class="control">
+                            <a class="button" id="button-add-person">
+                            Add
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -34,29 +46,35 @@
 
         <!-- On hover buttons will activate #modal, which will show some info about the person, on "click", hide #buttons, show #gifs-->
         <section class="container" id="buttons">
-            <div class="columns">
-                <div class="column button-1">
+            <div class="columns" id="button-columns-1" data-columns="1">
+                <div class="column" id="button-person-1" data-type="button">
                     <a class="button" data-person="Chris Hadfield">Chris Hadfield</a>
                 </div>
-                <div class="column button-2">
+                <div class="column" id="button-person-2" data-type="button">
                     <a class="button" data-person="Isaac Newton">Isaac Newton</a>
                 </div>
-                <div class="column button-3">
+                <div class="column" id="button-person-3" data-type="button">
                     <a class="button" data-person="Albert Einstein">Albert Einstein</a>
                 </div>
-                <div class="column button-4">
+                <div class="column" id="button-person-4" data-type="button">
                     <a class="button" data-person="Elon Musk">Elon Musk</a>
                 </div>
-                <div class="column button-5">
+                <div class="column" id="button-person-5" data-type="button">
                     <a class="button" data-person="Carl Sagan">Carl Sagan</a>
                 </div>
-            </div>            
+                <div class="column" id="button-person-6" data-type="button">
+                    <a class="button" data-person="Nikola Tesla">Nikola Tesla</a>
+                </div>
+            </div>
+            <div class="columns" id="button-columns-2">
+
+            </div>
         </section>
         
 
         <!-- GIFs container -->
         <section class="container" id="gifs">
-            <div class="columns">
+            <div class="columns gifs-columns-1">
 
             </div>
 
@@ -108,5 +126,9 @@
         </div>
     </section>
 
+<!-- jQuery/UI and custom JS scripts-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="assets/script.js"></script>
 </body>
 </html>
