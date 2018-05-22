@@ -1,0 +1,17 @@
+/*
+Code for the sticky footer hack
+*/
+.site {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}
+
+
+.center-text, .hero {
+    text-align: center;
+}
