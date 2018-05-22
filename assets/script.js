@@ -34,6 +34,7 @@ $("#button-add-person").on("click", function() {
 
     newColumn.addClass("column");
     newButton.addClass("button");
+    newButton.addClass("gif-button");
     newButton.attr("data-person", newPerson.val());
     newButton.text(newPerson.val());
 
@@ -63,7 +64,7 @@ $(".button").on("mouseover", function() {
   */
 
 //Listener for button click, creates the GIFs
-$(".button").on("click", function() {
+$(".gif-button").on("click", function() {
     var person = $(this).attr("data-person");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
       person + "&api_key=dc6zaTOxFJmzC&limit=3";
@@ -75,25 +76,88 @@ $(".button").on("click", function() {
         //save the Array of GIFs in a variable
         var results = response.data;
 
-        //create the div for columns
+        //create and prepend a box for the group of GIFs
+        var gifBox = $("<div>");
+        gifBox.addClass("box");
+        $("#gifs").prepend(gifBox);
+
+        //create and prepend the div for columns
         var gifColumns = $("<div>");
         gifColumns.addClass("columns");
+        gifBox.prepend(gifColumns);
 
-        $("#gifs").prepend(gifColumns);
+        //create and prepend a tiny empty column at the beggining of columns
+        var tinyColumn = $("<div>");
+        tinyColumn.addClass("column");
+        //tinyColumn.addClass("is-one");
+        gifColumns.append(tinyColumn);
 
+        //create nametag, write the name on it, append it
+        var nametag = $("<div>");
+        nametag.addClass("tags");
+        nametag.addClass("has-addons");
+
+        var name = $("<span>");
+        name.addClass("tag");
+        name.text(person);
+        nametag.append(name);
+
+        tinyColumn.append(nametag);
+
+        //create and append each img column
         for (var i = 0; i < results.length; i++) {
 
-            //create the div for each column
+            //create each column
             var gifColumn = $("<div>");
             gifColumn.addClass("column");
             gifColumn.addClass("has-text-centered");
+            gifColumn.addClass("is-one-quarter");
 
+            //create each img inside the column
             var gifImg = $("<img>");
             gifImg.attr("src", results[i].images.fixed_height.url);
 
+            //append the img to the column and then to the columns
             gifColumn.append(gifImg);
             gifColumns.append(gifColumn);
         }
+
+        //create and prepend a tiny column with a close button at the end of columns
+        //will erase the div with the GIFs
+        var tinyClosingColumn = $("<div>");
+        tinyClosingColumn.addClass("column");
+        //tinyClosingColumn.addClass("is-one");
+        tinyClosingColumn.addClass("has-text-right");
+        gifColumns.append(tinyClosingColumn);
+
+        /*
+        var nametag = $("<div>");
+        nametag.addClass("tags");
+        nametag.addClass("has-addons");
+
+        var name = $("<span>");
+        name.addClass("tag");
+        name.text(person);
+        nametag.append(name);
+
+        var closeBtn = $("<a>");
+        closeBtn.addClass("tag");
+        closeBtn.addClass("is-delete");
+        nametag.append(closeBtn);
+
+        tinyClosingColumn.append(nametag);
+        */
+
+        var closingBtn = $("<button>");
+        closingBtn.addClass("delete");
+        closingBtn.attr("aria-label", "close");
+
+        tinyClosingColumn.append(closingBtn);
+
     });
 });
 
+$(".delete").on("click", function() {
+    console.log(this);
+
+});
