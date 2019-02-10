@@ -1,2 +1,3 @@
 # GifTastic
-Have your favorite GIFs saved for you!
+
+Check out some GIFs about inspiring people!
